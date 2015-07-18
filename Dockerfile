@@ -21,7 +21,7 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install gd \
     && docker-php-ext-install mbstring \
-    && docker-php-ext-install Tidy \
+    && docker-php-ext-install tidy \
     && docker-php-ext-install gettext
 
 # Get Wallabag and install it
