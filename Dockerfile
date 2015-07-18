@@ -23,7 +23,8 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-install gd \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install tidy \
-    && docker-php-ext-install gettext
+    && docker-php-ext-install gettext \
+    && docker-php-ext-install pdo_mysql
 
 # Get Wallabag and install it
 RUN mkdir -p --mode=777 /var/local/backup/wallabag \
