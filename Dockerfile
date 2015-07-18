@@ -17,7 +17,7 @@ ENV WALLABAG_VERSION="1.9"
 
 # System update & install the PHP extensions we need
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y libpng12-dev libjpeg-dev rsync tidy && rm -rf /var/lib/apt/lists/* \
+    && apt-get install -y libpng12-dev libjpeg-dev rsync tidy unzip && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install gd \
     && docker-php-ext-install mbstring \
@@ -41,6 +41,9 @@ RUN mkdir -p --mode=777 /var/local/backup/wallabag \
         --exclude=TRANSLATION.md \
         --exclude=composer.json \
     && rm wallabag.tgz \
+    && curl -o vendor.zip -SL http://static.wallabag.org/files/vendor.zip \
+    && unzip vendor.zip -d /usr/src/wallabag \
+    && rm vendor.zip \
     && chown -R nginx:nginx /usr/src/wallabag
 
 # NGINX tuning for WALLABAG
