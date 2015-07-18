@@ -36,9 +36,7 @@ RUN mkdir -p --mode=777 /var/local/backup/wallabag \
         --exclude=COPYING.md \
         --exclude=GUIDELINES.md \
         --exclude=TRANSLATION.md \
-        --exclude=composer.json \
-        --exclude=check_essentials.php \
-        --exclude=check_setup.php \
+        --exclude=composer.json
     && rm wallabag.tgz \
     && chown -R nginx:nginx /usr/src/wallabag
 
