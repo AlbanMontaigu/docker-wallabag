@@ -9,7 +9,7 @@ tar -zcf /var/backup/wallabag/wallabag-v$(date '+%y%m%d%H%M%S').tar.gz /var/www
 echo >&2 "Installing or upgrading wallabag in $(pwd) - copying now..."
 rsync -ur /usr/src/wallabag/* /var/www/
 rm -rf cache/*
-chown -R nginx:nginx *
+chown -R nginx:nginx ./
 echo >&2 "Complete! wallabag has been successfully installed / upgraded to $(pwd)"
 
 # Exec main command
