@@ -27,7 +27,7 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-install pdo_mysql
 
 # Get Wallabag and install it
-RUN mkdir -p --mode=777 /var/local/backup/wallabag \
+RUN mkdir -p --mode=777 /var/backup/wallabag \
     && mkdir -p --mode=777 /usr/src/wallabag \
     && curl -o wallabag.tgz -SL https://github.com/wallabag/wallabag/archive/$WALLABAG_VERSION.tar.gz \
     && tar -xzf wallabag.tgz --strip-components=1 -C /usr/src/wallabag \
@@ -55,7 +55,7 @@ COPY ./nginx/conf/sites-enabled/default.conf /etc/nginx/sites-enabled/default.co
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 # Volume for wallabag backup
-VOLUME /var/local/backup/wallabag
+VOLUME /var/backup/wallabag
 
 # grr, ENTRYPOINT resets CMD now
 ENTRYPOINT ["/docker-entrypoint.sh"]

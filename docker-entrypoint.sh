@@ -2,7 +2,7 @@
 set -e
 
 # Backup the prev install in case of fail...
-tar -zcf wallabag-v$(date '+%y%m%d%H%M%S').tar.gz /var/local/backup/wallabag
+tar -zcf /var/backup/wallabag/wallabag-v$(date '+%y%m%d%H%M%S').tar.gz /var/www
 
 # Wallabag method to do the upgrade !
 # @see http://doc.wallabag.org/fr/Administrateur/maj_wallabag.html
