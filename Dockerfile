@@ -43,9 +43,6 @@ RUN mkdir -p --mode=777 /var/backup/wallabag \
     && rm vendor.zip \
     && chown -R nginx:nginx /usr/src/wallabag
 
-# NGINX tuning for WALLABAG
-COPY ./nginx/conf/sites-enabled/default.conf /etc/nginx/sites-enabled/default.conf
-
 # Entrypoint to enable live customization
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
