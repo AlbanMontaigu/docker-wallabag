@@ -2,29 +2,24 @@
 #
 # Wallabag with NGINX and PHP-FPM
 #
-# @see https://github.com/AlbanMontaigu/docker-nginx-php/blob/master/Dockerfile
+# @see https://github.com/AlbanMontaigu/docker-nginx-php-plus
 # @see https://github.com/AlbanMontaigu/docker-dokuwiki
 # ================================================================================================================
 
 # Base is a nginx install with php
-FROM amontaigu/nginx-php
+FROM amontaigu/nginx-php-plus:5.6.14
 
 # Maintainer
 MAINTAINER alban.montaigu@gmail.com
 
 # Wallabag env variables
-ENV WALLABAG_VERSION="1.9"
+ENV WALLABAG_VERSION="1.9.1"
 
 # System update & install the PHP extensions we need
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y libpng12-dev libjpeg-dev rsync libtidy-0.99-0 libtidy-dev unzip \
+RUN apt-get update \
+    && apt-get install -y rsync libtidy-0.99-0 libtidy-dev unzip \
     && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install tidy \
-    && docker-php-ext-install gettext \
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install tidy
 
 # Get Wallabag and install it
 RUN mkdir -p --mode=777 /var/backup/wallabag \
