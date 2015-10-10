@@ -41,7 +41,7 @@ RUN mkdir -p --mode=777 /var/backup/wallabag \
     && curl -o vendor.zip -SL http://static.wallabag.org/files/vendor.zip \
     && unzip vendor.zip -d /usr/src/wallabag \
     && rm vendor.zip \
-    && chown -R nginx:nginx /usr/src/wallabag
+    && chown -Rfv nginx:nginx /usr/src/wallabag
 
 # Entrypoint to enable live customization
 COPY docker-entrypoint.sh /docker-entrypoint.sh
