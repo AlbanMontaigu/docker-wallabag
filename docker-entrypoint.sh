@@ -32,7 +32,7 @@ rsync -urv /usr/src/wallabag/* .
 echo >&2 "[INFO] Removing cache"
 rm -rvf cache/*
 echo >&2 "[INFO] If upgrade, will remove the install directory (if not you won't see remove log)"
-if [ $wb_upgrade eq 1 ]
+if [ $wb_upgrade -eq 1 ]
 then
      rm -rvf ./install
 fi
