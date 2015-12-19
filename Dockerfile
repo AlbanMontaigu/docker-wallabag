@@ -7,13 +7,13 @@
 # ================================================================================================================
 
 # Base is a nginx install with php
-FROM amontaigu/nginx-php-plus:5.6.14
+FROM amontaigu/nginx-php-plus:5.6.16
 
 # Maintainer
 MAINTAINER alban.montaigu@gmail.com
 
 # Wallabag env variables
-ENV WALLABAG_VERSION="1.9.1"
+ENV WALLABAG_VERSION="1.9.1-b"
 
 # System update & install the PHP extensions we need
 RUN apt-get update \
