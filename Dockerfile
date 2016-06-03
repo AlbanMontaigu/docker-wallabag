@@ -13,7 +13,7 @@ FROM amontaigu/nginx-php-plus:5.6.21
 MAINTAINER alban.montaigu@gmail.com
 
 # Wallabag env variables
-ENV WALLABAG_VERSION="2.0.4"
+ENV WALLABAG_VERSION="2.0.5"
 
 # System update & install the PHP extensions we need
 RUN apt-get update \
