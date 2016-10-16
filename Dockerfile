@@ -24,24 +24,18 @@ RUN apt-get update \
 # Get Wallabag and install it
 RUN mkdir -p --mode=777 /var/backup/wallabag \
     && mkdir -p --mode=777 /usr/src/wallabag \
-    && curl -o wallabag.tgz -SL https://github.com/wallabag/wallabag/archive/$WALLABAG_VERSION.tar.gz \
+    && curl -o wallabag.tgz -SL https://framabag.org/wallabag-release-$WALLABAG_VERSION.tar.gz \
     && tar -xzf wallabag.tgz --strip-components=1 -C /usr/src/wallabag \
+        --exclude=.github \
         --exclude=.gitignore \
-        --exclude=CONTRIBUTING.md \
-        --exclude=CREDITS.md \
-        --exclude=README.md \
-        --exclude=Vagrantfile \
-        --exclude=composer.lock \
         --exclude=docs \
-        --exclude=COPYING.md \
-        --exclude=GUIDELINES.md \
-        --exclude=TRANSLATION.md \
-        --exclude=composer.json \
+        --exclude=docker \
+        --exclude=tests \
     && rm wallabag.tgz \
-    && curl -o vendor.zip -SL http://static.wallabag.org/files/vendor.zip \
-    && unzip vendor.zip -d /usr/src/wallabag \
-    && rm vendor.zip \
     && chown -Rfv nginx:nginx /usr/src/wallabag
+
+# NGINX tuning for WALLABAG
+COPY ./nginx/conf/sites-enabled/default.conf /etc/nginx/sites-enabled/default.conf
 
 # Entrypoint to enable live customization
 COPY docker-entrypoint.sh /docker-entrypoint.sh

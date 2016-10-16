@@ -15,30 +15,34 @@ echo >&2 "[INFO] ---------------------------------------------------------------
 tar -zcvf /var/backup/wallabag/wallabag-v$(date '+%Y%m%d%H%M%S').tar.gz .
 echo >&2 "[INFO] Complete! Backup successfully done in $(pwd)"
 
-# Wallabag method to do the upgrade !
-# @see http://doc.wallabag.org/fr/Administrateur/maj_wallabag.html
+# Wallabag upgrade
+# @see http://doc.wallabag.org/en/master/user/upgrade-2.0.x-2.1.1.html
 echo >&2 "[INFO] ---------------------------------------------------------------"
-echo >&2 "[INFO] Installing or upgrading wallabag in $(pwd) - copying now..."
+echo >&2 "[INFO] Installing or upgrading wallabag in $(pwd)"
 echo >&2 "[INFO] ---------------------------------------------------------------"
-echo >&2 "[INFO] Checking if this is and upgrade"
-wb_upgrade=0
-if [ -f ./index.php ] 
-then
-    wb_upgrade=1
-fi
-echo >&2 "[INFO] wb_upgrade = $wb_upgrade"
-echo >&2 "[INFO] Syncing your installation with rsync and last source"
-rsync -urv /usr/src/wallabag/* .
-echo >&2 "[INFO] Removing cache"
-rm -rvf cache/*
-echo >&2 "[INFO] If upgrade, will remove the install directory (if not you won't see remove log)"
-if [ $wb_upgrade -eq 1 ]
-then
-     rm -rvf ./install
-fi
+
+# Backup of parameters
+echo >&2 "[INFO] Backup app/config/parameters.yml"
+mv -vf app/config/parameters.yml /tmp/parameters.yml
+
+# Removing old files except data
+echo >&2 "[INFO] Removing old installation"
+find -maxdepth 1 ! -regex '^\./data.*$' ! -regex '^\.$' -exec rm -rvf {} +
+
+# Extracting new files
+echo >&2 "[INFO] Extracting new installation"
+tar cvf - --one-file-system -C /usr/src/wallabag . | tar xvf -
+
+# Restore parameters
+echo >&2 "[INFO] Restore app/config/parameters.yml"
+mv -vf /tmp/parameters.yml app/config/parameters.yml
+
+# Rights correction
 echo >&2 "[INFO] Fixing rights"
 chown -Rfv nginx:nginx .
-echo >&2 "[INFO] Complete! wallabag has been successfully installed / upgraded to $(pwd)"
+
+# Done
+echo >&2 "[INFO] Complete! Wallabag has been successfully installed / upgraded to $(pwd)"
 
 # Exec main command
 exec "$@"
