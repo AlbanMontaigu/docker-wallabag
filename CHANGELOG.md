@@ -1,6 +1,7 @@
 
 ## 2.1.1 (2016-10-17)
 - Update to amontaigu/nginx-php-plus:5.6.27
+- Update to wallabag 2.1.2
 
 ## 2.1.1 (2016-10-16)
 - Update to wallabag 2.1.1
