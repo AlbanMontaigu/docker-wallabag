@@ -13,7 +13,7 @@ FROM amontaigu/nginx-php-plus:5.6.27
 MAINTAINER alban.montaigu@gmail.com
 
 # Wallabag env variables
-ENV WALLABAG_VERSION="2.1.2"
+ENV WALLABAG_VERSION="2.1.1"
 
 # System update & install the PHP extensions we need
 RUN apt-get update \
@@ -32,7 +32,9 @@ RUN mkdir -p --mode=777 /var/backup/wallabag \
         --exclude=docker \
         --exclude=tests \
     && rm wallabag.tgz \
-    && chown -Rfv nginx:nginx /usr/src/wallabag
+    && chown -Rfv nginx:nginx /usr/src/wallabag \
+    && sed -i -e "s%doc_root = \".*\"%doc_root = \"/var/www/web\"%g" $PHP_INI_DIR/php.ini \
+    && sed -i -e "s%user_dir = \".*\"%user_dir = \"/var/www/web\"%g" $PHP_INI_DIR/php.ini
 
 # NGINX tuning for WALLABAG
 COPY ./nginx/conf/sites-enabled/default.conf /etc/nginx/sites-enabled/default.conf
