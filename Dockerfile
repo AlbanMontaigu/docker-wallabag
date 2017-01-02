@@ -24,7 +24,7 @@ RUN apt-get update \
 # Get Wallabag and install it
 RUN mkdir -p --mode=777 /var/backup/wallabag \
     && mkdir -p --mode=777 /usr/src/wallabag \
-    && curl -o wallabag.tgz -SL https://framabag.org/wallabag-release-$WALLABAG_VERSION.tar.gz \
+    && curl -o wallabag.tgz -SL http://static.wallabag.org/releases/wallabag-release-$WALLABAG_VERSION.tar.gz \
     && tar -xzf wallabag.tgz --strip-components=1 -C /usr/src/wallabag \
         --exclude=.github \
         --exclude=.gitignore \
