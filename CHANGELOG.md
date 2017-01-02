@@ -1,4 +1,7 @@
 
+## 2.1.5 (2017-01-02)
+- Update to wallabag 2.1.5
+
 ## 2.1.1 (2016-10-17)
 - Update to amontaigu/nginx-php-plus:5.6.27
 - Finally fixed the path issue
